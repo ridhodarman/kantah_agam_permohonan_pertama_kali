@@ -22,12 +22,11 @@
                         <form action="{{ route('berkas.store') }}" method="POST">
                             <div class="modal-body">
                                 @csrf
-
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
                                             <label>No Berkas:</label>
-                                            <input type="text" name="no_berkas" class="form-control" placeholder="0000">
+                                            <input type="text" name="no_berkas" class="form-control" placeholder="0000" required>
                                         </div>
                                         <br />
                                     </div>
@@ -43,7 +42,7 @@
                                         <div class="form-group">
                                             <label>Nama Pemohon:</label>
                                             <input type="text" name="nama_pemohon" class="form-control"
-                                                placeholder="Nama Pemohon">
+                                                placeholder="Nama Pemohon" required>
                                         </div>
                                         <br />
                                     </div>
@@ -110,6 +109,13 @@
                                         </div>
                                         <br />
                                     </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <div class="form-group">
+                                            <label>Nama Kuasa:</label>
+                                            <input type="text" id="nama_kuasa" name="nama_kuasa" class="form-control">
+                                        </div>
+                                        <br />
+                                    </div>
                                 </div>
                                 <script>
                                     function no_su(){
@@ -138,9 +144,12 @@
 </div>
 
 @if ($message = Session::get('success'))
-<div class="alert alert-success">
-    <p>{{ $message }}</p>
-</div>
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ $message }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
 @endif
 
 <table class="table table-bordered">
@@ -196,6 +205,7 @@
                                 Tanggal SK: <b>{{ $b->tanggal_sk }}</b><br>
                                 No SK: <b>{{ $b->no_sk }}</b><br>
                                 Keterangan: <b>{{ $b->keterangan }}</b><br>
+                                Nama Kuasa: <b>{{ $b->nama_kuasa }}</b><br>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -225,7 +235,7 @@
                                                 No Berkas
                                             </td>
                                             <td>
-                                                <input type="text" id="{{ $b->id }}no_berkas" name="no_berkas" class="form-control" value="{{ $b->no_berkas }}">
+                                                <input type="text" id="{{ $b->id }}no_berkas" name="no_berkas" class="form-control" value="{{ $b->no_berkas }}" required>
                                             </td>
                                         </tr>
                                         <tr>
@@ -241,7 +251,7 @@
                                                 Nama Pemohon
                                             </td>
                                             <td>
-                                                <input type="text" id="{{ $b->id }}nama_pemohon" name="nama_pemohon" class="form-control" value="{{ $b->nama_pemohon }}">
+                                                <input type="text" id="{{ $b->id }}nama_pemohon" name="nama_pemohon" class="form-control" value="{{ $b->nama_pemohon }}" required>
                                             </td>
                                         </tr>
                                         <tr>
@@ -454,7 +464,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                Tgl Surat Penugasan Fisik Bidang Tanah
+                                                Tgl Surat Penguasan Fisik Bidang Tanah
                                             </td>
                                             <td>
                                                 <input type="date" id="{{ $b->id }}tanggal_penugasan_fisik" name="tanggal_penugasan_fisik" class="form-control" value="{{ $b->tanggal_penugasan_fisik }}">
@@ -538,6 +548,14 @@
                                             </td>
                                             <td>
                                                 <textarea id="{{ $b->id }}ket" name="ket" class="form-control">{{ $b->ket }}</textarea>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Nama Kuasa
+                                            </td>
+                                            <td>
+                                                <input type="text" id="{{ $b->id }}nama_kuasa" name="nama_kuasa" class="form-control" value="{{ $b->nama_kuasa }}" required>
                                             </td>
                                         </tr>
                                     </table>

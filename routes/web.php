@@ -72,6 +72,7 @@ Route::get('/print/undangan/{id}', function ($id) {
     $berkas = Berkas_pemohon::find($id);
     //return $berkas;
     $nama = $berkas->nama_pemohon;
+    $kuasa = $berkas->nama_kuasa;
     $tahun = date('Y');
     $luas = $berkas->luas;
     $nagari = $berkas->nagari;
@@ -103,9 +104,14 @@ Route::get('/print/undangan/{id}', function ($id) {
     if($no_surat_undangan==null){
         $no_surat_undangan = "      /002-03.04/VII/".$tahun;
     }
+
+    if($kuasa==null){
+        $kuasa = $berkas->nama_pemohon;
+    }
     
     $template = new \PhpOffice\PhpWord\TemplateProcessor(storage_path('undangan.docx'));
     $template -> setValue('nama', strtoupper($nama) );
+    $template -> setValue('kuasa', strtoupper($kuasa) );
     $template -> setValue('tahun', $tahun);
     $template -> setValue('luas', $luas);
     $template -> setValue('nagari', strtoupper($nagari));

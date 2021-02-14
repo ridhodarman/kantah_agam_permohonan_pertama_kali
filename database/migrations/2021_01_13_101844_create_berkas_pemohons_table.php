@@ -16,7 +16,7 @@ class CreateBerkasPemohonsTable extends Migration
         Schema::create('berkas_pemohons', function (Blueprint $table) {
             $table->id();
             $table->string('no_berkas', 7);
-            $table->string('nama_pemohon', 70);
+            $table->string('nama_pemohon', 200);
             $table->string('nib', 30)->nullable();
             $table->date('tanggal_pbt')->nullable();
             $table->string('no_pbt', 10)->nullable();
@@ -47,7 +47,7 @@ class CreateBerkasPemohonsTable extends Migration
 
             $table->string('penggunaan_saat_ini', 30)->nullable();
             $table->string('rencana_penggunaan', 30)->nullable();
-            $table->string('no_suket_wali', 30)->nullable();
+            $table->string('no_suket_wali', 50)->nullable();
             $table->date('tanggal_suket_wali')->nullable();
 
             $table->string('nik_pemohon', 20)->nullable();
@@ -63,7 +63,7 @@ class CreateBerkasPemohonsTable extends Migration
             $table->date('tanggal_sk_kan')->nullable();
             $table->string('no_sk_kan', 40)->nullable();
             $table->string('nama_wali_nagari', 40)->nullable();
-
+            $table->string('nama_kuasa', 50);
             $table->timestamps();
         });
     }
