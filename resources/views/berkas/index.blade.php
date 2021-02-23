@@ -392,6 +392,22 @@
                                         </tr>
                                         <tr>
                                             <td>
+                                                Tanggal Surat Permohonan
+                                            </td>
+                                            <td>
+                                                <input type="date" id="{{ $b->id }}tanggal_surat_permohonan" name="tanggal_surat_permohonan" class="form-control" value="{{ $b->tanggal_surat_permohonan }}">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Tgl Surat Penguasan Fisik Bidang Tanah
+                                            </td>
+                                            <td>
+                                                <input type="date" id="{{ $b->id }}tanggal_penugasan_fisik" name="tanggal_penugasan_fisik" class="form-control" value="{{ $b->tanggal_penugasan_fisik }}">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
                                                 No. Surat Keterangan Wali Nagari
                                             </td>
                                             <td>
@@ -432,6 +448,22 @@
                                         </tr>
                                         <tr>
                                             <td>
+                                                Alas Hak
+                                            </td>
+                                            <td>
+                                                <input type="text" id="{{ $b->id }}alas_hak" name="alas_hak" class="form-control" value="{{ $b->alas_hak }}">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Tgl Alas Hak
+                                            </td>
+                                            <td>
+                                                <input type="date" id="{{ $b->id }}tanggal_alas_hak" name="tanggal_alas_hak" class="form-control" value="{{ $b->tanggal_alas_hak }}">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
                                                 NIK Pemohon
                                             </td>
                                             <td>
@@ -460,22 +492,6 @@
                                             </td>
                                             <td>
                                                 <input type="text" id="{{ $b->id }}alamat_pemohon" name="alamat_pemohon" class="form-control" value="{{ $b->alamat_pemohon }}">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                Tgl Surat Penguasan Fisik Bidang Tanah
-                                            </td>
-                                            <td>
-                                                <input type="date" id="{{ $b->id }}tanggal_penugasan_fisik" name="tanggal_penugasan_fisik" class="form-control" value="{{ $b->tanggal_penugasan_fisik }}">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                Tanggal Surat Permohonan
-                                            </td>
-                                            <td>
-                                                <input type="date" id="{{ $b->id }}tanggal_surat_permohonan" name="tanggal_surat_permohonan" class="form-control" value="{{ $b->tanggal_surat_permohonan }}">
                                             </td>
                                         </tr>
                                         <tr>
@@ -555,7 +571,7 @@
                                                 Nama Kuasa
                                             </td>
                                             <td>
-                                                <input type="text" id="{{ $b->id }}nama_kuasa" name="nama_kuasa" class="form-control" value="{{ $b->nama_kuasa }}" required>
+                                                <input type="text" id="{{ $b->id }}nama_kuasa" name="nama_kuasa" class="form-control" value="{{ $b->nama_kuasa }}">
                                             </td>
                                         </tr>
                                     </table>
@@ -767,7 +783,7 @@
             p=true;
         }
         if (!document.getElementById(`${id}tanggal_penugasan_fisik`).value) {
-            warning = `${warning} - Tanggal Penugasan Fisik<br/>`;
+            warning = `${warning} - Tanggal Penguasan Fisik<br/>`;
             p=true;
         }
         if (!document.getElementById(`${id}no_suket_wali`).value) {
@@ -792,6 +808,14 @@
         }
         if (!document.getElementById(`${id}tgl_sk_kantah_panitia`).value) {
             warning = `${warning} - Tanggal SK Kepala Kantah untuk Risalah Panitia<br/>`;
+            p=true;
+        }
+        if (!document.getElementById(`${id}alas_hak`).value) {
+            warning = `${warning} - Alas Hak<br/>`;
+            p=true;
+        }
+        if (!document.getElementById(`${id}tanggal_alas_hak`).value) {
+            warning = `${warning} - Tanggal Alas Hak<br/>`;
             p=true;
         }
         
@@ -858,81 +882,20 @@
     function cek_sk(id){
         let p = false;
         let warning = "Data berikut belum terisi:<br/>";
-        warning = `${warning} - Tanggal Surat Permohonan<br/>`;
-        warning = `${warning} - Tanggal Berkas Didaftarkan<br/>`;
 
-        if (!document.getElementById(`${id}no_sk`).value) {
-            warning = `${warning} - Nomor SK<br/>`;
+        if (!document.getElementById(`${id}no_peng`).value) {
+            warning = `${warning} - Nomor Pengumuman<br/>`;
             p=true;
         }
-        if (!document.getElementById(`${id}tanggal_sk`).value) {
-            warning = `${warning} - Tanggal SK<br/>`;
-            p=true;
-        }
-        if (!document.getElementById(`${id}tanggal_surat_permohonan`).value) {
-            warning = `${warning} - Tanggal surat permohonan<br/>`;
-            p=true;
-        }
-        if (!document.getElementById(`${id}tanggal_berkas_didaftarkan`).value) {
-            warning = `${warning} - Tanggal berkas di daftarkan<br/>`;
-            p=true;
-        }
-        if (!document.getElementById(`${id}no_pbt`).value) {
-            warning = `${warning} - Nomor PBT<br/>`;
-            p=true;
-        }
-        if (!document.getElementById(`${id}tanggal_pbt`).value) {
-            warning = `${warning} - Tanggal PBT<br/>`;
-            p=true;
-        }
-        if (!document.getElementById(`${id}no_ris`).value) {
-            warning = `${warning} - Nomor Risalah<br/>`;
-            p=true;
-        }
-        if (!document.getElementById(`${id}tanggal_ris`).value) {
-            warning = `${warning} - Tanggal Risalah<br/>`;
-            p=true;
-        }
-        if (!document.getElementById(`${id}nib`).value) {
-            warning = `${warning} - NIB<br/>`;
-            p=true;
-        }
-        if (!document.getElementById(`${id}luas`).value) {
-            warning = `${warning} - Luas Tanah<br/>`;
-            p=true;
-        }
-        if (!document.getElementById(`${id}jorong`).value) {
-            warning = `${warning} - Jorong (letak tanah)<br/>`;
+        if (!document.getElementById(`${id}tanggal_peng`).value) {
+            warning = `${warning} - Tanggal Pengumuman<br/>`;
             p=true;
         }
         if (!document.getElementById(`${id}nagari`).value) {
-            warning = `${warning} - Nagari (letak tanah)<br/>`;
+            warning = `${warning} - Nagari<br/>`;
             p=true;
         }
-        if (!document.getElementById(`${id}kecamatan`).value) {
-            warning = `${warning} - Kecamatan (letak tanah)<br/>`;
-            p=true;
-        }
-        if (!document.getElementById(`${id}tempat_lahir_pemohon`).value) {
-            warning = `${warning} - Tempat lahir pemohon<br/>`;
-            p=true;
-        }
-        if (!document.getElementById(`${id}tanggal_lahir_pemohon`).value) {
-            warning = `${warning} - Tanggal lahir pemohon<br/>`;
-            p=true;
-        }
-        if (!document.getElementById(`${id}alamat_pemohon`).value) {
-            warning = `${warning} - Alamat pemohon<br/>`;
-            p=true;
-        }
-        if (!document.getElementById(`${id}penggunaan_saat_ini`).value) {
-            warning = `${warning} - Penggunaan lahan saat ini<br/>`;
-            p=true;
-        }
-        if (!document.getElementById(`${id}rencana_penggunaan`).value) {
-            warning = `${warning} - Rencana Penggunaan<br/>`;
-            p=true;
-        }
+        
         if(p==true){
             Swal.fire({
             title: '<strong><u>warning</u></strong>',
@@ -951,6 +914,102 @@
         }
     }
 
+    // function cek_sk(id){
+    //     let p = false;
+    //     let warning = "Data berikut belum terisi:<br/>";
+    //     warning = `${warning} - Tanggal Surat Permohonan<br/>`;
+    //     warning = `${warning} - Tanggal Berkas Didaftarkan<br/>`;
+
+    //     if (!document.getElementById(`${id}no_sk`).value) {
+    //         warning = `${warning} - Nomor SK<br/>`;
+    //         p=true;
+    //     }
+    //     if (!document.getElementById(`${id}tanggal_sk`).value) {
+    //         warning = `${warning} - Tanggal SK<br/>`;
+    //         p=true;
+    //     }
+    //     if (!document.getElementById(`${id}tanggal_surat_permohonan`).value) {
+    //         warning = `${warning} - Tanggal surat permohonan<br/>`;
+    //         p=true;
+    //     }
+    //     if (!document.getElementById(`${id}tanggal_berkas_didaftarkan`).value) {
+    //         warning = `${warning} - Tanggal berkas di daftarkan<br/>`;
+    //         p=true;
+    //     }
+    //     if (!document.getElementById(`${id}no_pbt`).value) {
+    //         warning = `${warning} - Nomor PBT<br/>`;
+    //         p=true;
+    //     }
+    //     if (!document.getElementById(`${id}tanggal_pbt`).value) {
+    //         warning = `${warning} - Tanggal PBT<br/>`;
+    //         p=true;
+    //     }
+    //     if (!document.getElementById(`${id}no_ris`).value) {
+    //         warning = `${warning} - Nomor Risalah<br/>`;
+    //         p=true;
+    //     }
+    //     if (!document.getElementById(`${id}tanggal_ris`).value) {
+    //         warning = `${warning} - Tanggal Risalah<br/>`;
+    //         p=true;
+    //     }
+    //     if (!document.getElementById(`${id}nib`).value) {
+    //         warning = `${warning} - NIB<br/>`;
+    //         p=true;
+    //     }
+    //     if (!document.getElementById(`${id}luas`).value) {
+    //         warning = `${warning} - Luas Tanah<br/>`;
+    //         p=true;
+    //     }
+    //     if (!document.getElementById(`${id}jorong`).value) {
+    //         warning = `${warning} - Jorong (letak tanah)<br/>`;
+    //         p=true;
+    //     }
+    //     if (!document.getElementById(`${id}nagari`).value) {
+    //         warning = `${warning} - Nagari (letak tanah)<br/>`;
+    //         p=true;
+    //     }
+    //     if (!document.getElementById(`${id}kecamatan`).value) {
+    //         warning = `${warning} - Kecamatan (letak tanah)<br/>`;
+    //         p=true;
+    //     }
+    //     if (!document.getElementById(`${id}tempat_lahir_pemohon`).value) {
+    //         warning = `${warning} - Tempat lahir pemohon<br/>`;
+    //         p=true;
+    //     }
+    //     if (!document.getElementById(`${id}tanggal_lahir_pemohon`).value) {
+    //         warning = `${warning} - Tanggal lahir pemohon<br/>`;
+    //         p=true;
+    //     }
+    //     if (!document.getElementById(`${id}alamat_pemohon`).value) {
+    //         warning = `${warning} - Alamat pemohon<br/>`;
+    //         p=true;
+    //     }
+    //     if (!document.getElementById(`${id}penggunaan_saat_ini`).value) {
+    //         warning = `${warning} - Penggunaan lahan saat ini<br/>`;
+    //         p=true;
+    //     }
+    //     if (!document.getElementById(`${id}rencana_penggunaan`).value) {
+    //         warning = `${warning} - Rencana Penggunaan<br/>`;
+    //         p=true;
+    //     }
+    //     if(p==true){
+    //         Swal.fire({
+    //         title: '<strong><u>warning</u></strong>',
+    //         icon: 'info',
+    //         html: warning,
+    //         showCloseButton: true,
+    //         showCancelButton: false,
+    //         focusConfirm: false,
+    //         confirmButtonText:
+    //             '<i class="fa fa-thumbs-up"></i> Oke!',
+    //         confirmButtonAriaLabel: 'Thumbs up, great!',
+    //         cancelButtonText:
+    //             '<i class="fa fa-thumbs-down"></i> Oke!',
+    //         cancelButtonAriaLabel: 'Thumbs down'
+    //         })
+    //     }
+    // }
+    
 </script>
 
 @endsection

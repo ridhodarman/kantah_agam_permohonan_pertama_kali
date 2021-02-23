@@ -162,6 +162,8 @@ Route::get('/print/risalah/{id}', function ($id) {
     $nama_wali_nagari = strtoupper($berkas->nama_wali_nagari);
     $tgl_sk_kantah_panitia = Carbon::parse($berkas->tgl_sk_kantah_panitia)->isoFormat('D MMMM Y');
     $no_sk_kantah_panitia = $berkas->no_sk_kantah_panitia;
+    $alas_hak = $berkas->alas_hak;
+    $tanggal_alas_hak = Carbon::parse($berkas->tanggal_alas_hak)->isoFormat('D MMMM Y');
     if($no_sk_kantah_panitia==null){
         $no_sk_kantah_panitia = "85/SK- 13.06.HP.01/XI/2020";
     }
@@ -225,6 +227,8 @@ Route::get('/print/risalah/{id}', function ($id) {
     $template -> setValue('luas_huruf', $luas_huruf);
     $template -> setValue('jorong', $jorong);
     $template -> setValue('nib', $nib);
+    $template -> setValue('alas_hak', $alas_hak);
+    $template -> setValue('tanggal_alas_hak', $tanggal_alas_hak);
     $template -> setValue('tahun', $tahun);
     $template -> setValue('alamat_pemohon', $alamat_pemohon);
     $template -> setValue('nik_pemohon', $nik_pemohon);
@@ -286,6 +290,8 @@ Route::get('/print/sk/{id}', function ($id) {
     $luas = $berkas->luas;
     $jorong = $berkas->jorong;
     $nagari = $berkas->nagari;
+    $no_peng = $berkas->no_peng;
+    $tanggal_peng = Carbon::parse($berkas->tanggal_peng)->isoFormat('D MMMM Y');
     $kecamatan = $berkas->kecamatan;
     $nib = $berkas->nib;
     $no_berkas = $berkas->no_berkas;
@@ -336,6 +342,8 @@ Route::get('/print/sk/{id}', function ($id) {
     $template -> setValue('kecamatan_kapital', strtoupper($kecamatan));
     $template -> setValue('nama', $nama);
     $template -> setValue('tahun', $tahun);
+    $template -> setValue('no_peng', $no_peng);
+    $template -> setValue('tanggal_peng', $tanggal_peng);
     $template -> setValue('luas', $luas);
     $template -> setValue('luas_huruf', $luas_huruf);
     $template -> setValue('jorong', $jorong);

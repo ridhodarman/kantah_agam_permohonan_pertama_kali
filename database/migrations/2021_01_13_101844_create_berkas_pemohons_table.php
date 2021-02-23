@@ -64,6 +64,9 @@ class CreateBerkasPemohonsTable extends Migration
             $table->string('no_sk_kan', 40)->nullable();
             $table->string('nama_wali_nagari', 40)->nullable();
             $table->string('nama_kuasa', 50);
+
+            $table->string('alas_hak', 80);
+            $table->date('tanggal_alas_hak')->nullable();
             $table->timestamps();
         });
     }
