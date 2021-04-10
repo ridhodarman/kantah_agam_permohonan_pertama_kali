@@ -16,7 +16,7 @@ class CreateBerkasPemohonsTable extends Migration
         Schema::create('berkas_pemohons', function (Blueprint $table) {
             $table->id();
             $table->string('no_berkas', 7);
-            $table->string('nama_pemohon', 200);
+            $table->text('nama_pemohon');
             $table->string('nib', 30)->nullable();
             $table->date('tanggal_pbt')->nullable();
             $table->string('no_pbt', 10)->nullable();
@@ -38,7 +38,6 @@ class CreateBerkasPemohonsTable extends Migration
             $table->date('sampai_tanggal')->nullable();
             $table->date('tanggal_sk')->nullable();
             $table->string('no_sk', 30)->nullable();
-            $table->text('ket')->nullable();
             $table->integer('tahun')->nullable();
 
             $table->string('no_surat_undangan', 40)->nullable();
@@ -50,23 +49,25 @@ class CreateBerkasPemohonsTable extends Migration
             $table->string('no_suket_wali', 50)->nullable();
             $table->date('tanggal_suket_wali')->nullable();
 
-            $table->string('nik_pemohon', 20)->nullable();
-            $table->string('tempat_lahir_pemohon', 20)->nullable();
-            $table->date('tanggal_lahir_pemohon')->nullable();
-            $table->string('alamat_pemohon', 70)->nullable();
+            $table->text('nik_pemohon')->nullable();
+            $table->text('tempat_lahir_pemohon')->nullable();
+            $table->text('tanggal_lahir_pemohon')->nullable();
+            $table->text('alamat_pemohon')->nullable();
 
             $table->date('tanggal_penugasan_fisik')->nullable();
 
             $table->date('tanggal_surat_permohonan')->nullable();
-            $table->date('tanggal_berkas_didaftarkan')->nullable();
 
             $table->date('tanggal_sk_kan')->nullable();
             $table->string('no_sk_kan', 40)->nullable();
             $table->string('nama_wali_nagari', 40)->nullable();
-            $table->string('nama_kuasa', 50);
+            $table->string('nama_kuasa', 50)->nullable();
 
-            $table->string('alas_hak', 80);
+            $table->string('alas_hak', 80)->nullable();
             $table->date('tanggal_alas_hak')->nullable();
+
+            $table->integer('total_biaya')->nullable();
+            $table->date('tanggal_mulai')->nullable();
             $table->timestamps();
         });
     }

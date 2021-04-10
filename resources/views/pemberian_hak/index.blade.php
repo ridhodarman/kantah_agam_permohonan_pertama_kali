@@ -1,11 +1,10 @@
 @extends('layouts.template')
 
 @section('content')
-
 <div class="row mt-5 mb-5">
     <div class="col-lg-12 margin-tb">
         <div class="float-left">
-            <h5>Rutin</h5>
+            <h5>Pemberian Hak</h5>
         </div>
         <div class="float-right">
             <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -13,44 +12,36 @@
             </button>
             <br/><br/>
             <div class="row">
-                <div class="col-lg-2 col-sm-12">
-                    <form action='{{ route("cari") }}/berkas/nama' class="search" method="GET">
-                        @csrf
-                        <div class="input-group w-100">
-                            <input type="text" class="form-control" placeholder="Cari nama pemohon" name="nama_pemohon" 
-                            value="@if(isset($nama_pemohon)){{ $nama_pemohon }}@endif">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="submit">
-                                    Q
-                                </button>
-                            </div>
+            <div class="col-lg-2 col-sm-12">
+                <form action='{{ route("cari") }}/pemberian_hak/nama' class="search" method="GET">
+                    @csrf
+                    <div class="input-group w-100">
+                        <input type="text" class="form-control" placeholder="Cari nama pemohon" name="nama_pemohon" 
+                        value="@if(isset($nama_pemohon)){{ $nama_pemohon }}@endif">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="submit">
+                                o
+                            </button>
                         </div>
-                    </form> 
-                </div> 
-    
-                <div class="col-lg-2 col-sm-12">
-                    <form action='{{ route("cari") }}/berkas/no_berkas' class="search" method="GET">
-                        @csrf
-                        <div class="input-group w-100">
-                            <input type="text" class="form-control" placeholder="Cari nomor berkas" name="no_berkas" 
-                            value="@if(isset($no_berkas)){{ $no_berkas }}@endif">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="submit">
-                                    Q
-                                </button>
-                            </div>
+                    </div>
+                </form> 
+            </div> 
+
+            <div class="col-lg-2 col-sm-12">
+                <form action='{{ route("cari") }}/pemberian_hak/no_berkas' class="search" method="GET">
+                    @csrf
+                    <div class="input-group w-100">
+                        <input type="text" class="form-control" placeholder="Cari nomor berkas" name="no_berkas" 
+                        value="@if(isset($no_berkas)){{ $no_berkas }}@endif">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="submit">
+                                o
+                            </button>
                         </div>
-                    </form> 
-                </div> 
-
-                <div class="col-lg-2 col-sm-12">
-                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#export">
-                        Export
-                    </button>
-                </div>
-            </div>
-
-            <br/>
+                    </div>
+                </form> 
+            </div> 
+        </div>
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog">
@@ -59,7 +50,7 @@
                             <h5 class="modal-title" id="exampleModalLabel">Input Berkas</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form action="{{ route('berkas.store') }}" method="POST">
+                        <form action="{{ route('pemberian_hak.store') }}" method="POST">
                             <div class="modal-body">
                                 @csrf
                                 <div class="row">
@@ -170,95 +161,59 @@
                                         <i class="glyphicon glyphicon-plus"></i> Tambah nama pemohon
                                     </button>
 
-                                    <script>
-                                        let idp = 1;
-                                        $(document).ready(function () {
-                                            $(".tambahp").click(function () {
-                                                var html = $(".isian").html();
-                                                $(".tambahkan").append(`
-                                                  <div class="isian hide" id="${idp}">
-            <div class="kolom">
-              <label>Nama Pemohon</label>
-              <input type="text" name="nama[]" class="form-control" placeholder="nama pemohon selanjutnya">
-              <div style="float: right;">
-                <button class="btn btn-danger btn-sm" type="button" onclick="hapus_p(${idp})"><i class="glyphicon glyphicon-hapus"></i> Remove</button>
-            </div>
-            </div>
-            <br/>
-          </div>
-                                                  `);
-                                                idp++;
-                                            });
+                                </div>
 
-
+                                <script>
+                                    let idp = 1;
+                                    $(document).ready(function () {
+                                        $(".tambahp").click(function () {
+                                            var html = $(".isian").html();
+                                            $(".tambahkan").append(`
+                                          <div class="isian hide" id="${idp}">
+    <div class="kolom">
+      <label>Nama Pemohon</label>
+      <input type="text" name="nama[]" class="form-control" placeholder="nama pemohon selanjutnya">
+      <div style="float: right;">
+        <button class="btn btn-danger btn-sm" type="button" onclick="hapus_p(${idp})"><i class="glyphicon glyphicon-hapus"></i> Remove</button>
+    </div>
+    </div>
+    <br/>
+  </div>
+                                          `);
+                                            idp++;
                                         });
 
-                                        function hapus_p(id) {
-                                            $(`#${id}`).remove();
+                                       
+                                    });
 
-                                        }
+                                    function hapus_p(id) {
+                                        $(`#${id}`).remove();
 
-                                        function no_su() {
-                                            let no = document.getElementById("no_surat_undangan").value;
-                                            document.getElementById("no_st").value = no.replace("03.04", "002-03.04");
-                                        }
+                                    }
 
-                                        function tgl_su() {
-                                            let tgl = document.getElementById("tanggal_surat_undangan").value;
-                                            document.getElementById("tanggal_st").value = tgl;
-                                        }
-                                    </script>
+                                    function no_su() {
+                                        let no = document.getElementById("no_surat_undangan").value;
+                                        document.getElementById("no_st").value = no.replace("03.04", "002-03.04");
+                                    }
 
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Simpan</button>
-                                </div>
+                                    function tgl_su() {
+                                        let tgl = document.getElementById("tanggal_surat_undangan").value;
+                                        document.getElementById("tanggal_st").value = tgl;
+                                    }
+                                </script>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Simpan</button>
+                            </div>
                         </form>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
-    <div class="modal fade" id="export" tabindex="-1" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Input Berkas</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <form action="{{ route('print') }}/export" method="POST" target="_blank">
-                        <div class="modal-body">
-                            @csrf
-                            <div class="row">
-                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group">
-                                        <label>Tanggal Mulai:</label>
-                                        <input type="date" name="tanggal_mulai"
-                                            class="form-control" required>
-                                    </div>
-                                    <br />
-                                </div>
-                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group">
-                                        <label>Sampai dengan:</label>
-                                        <input type="date" name="sampai_tanggal" class="form-control" required>
-                                    </div>
-                                </div>
-                                
-                            </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary"
-                                    data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-success">Export</button>
-                            </div>
-               
-            </form>
-            </div>
-        </div>
 </div>
 
 @if ($message = Session::get('success'))
@@ -280,14 +235,13 @@
         <th>Action</th>
         <th>Cetak</th>
     </tr>
-    @foreach ($berkas as $b)
+    @foreach ($sql as $b)
     <tr>
         <td class="text-center">{{ ++$i }}</td>
         <td>{{ $b->no_berkas }}</td>
         <td>{{ $b->tahun }}</td>
         <td>
             @php
-            $nama_p="";
             $result = json_decode($b->nama_pemohon);
             if (json_last_error() === JSON_ERROR_NONE) {
             $array = json_decode($b->nama_pemohon);
@@ -332,12 +286,12 @@
                             Tanggal Ke Lapangan: <b>{{ $b->tanggal_lap }}</b><br>
                             Tgl Risalah Panitia A: <b>{{ $b->tanggal_ris }}</b><br>
                             No. Risalah Panitia A: <b>{{ $b->no_ris }}</b><br>
-                            Tanggal Pengumuman: <b>{{ $b->tanggal_peng }}</b><br>
+                            Tanggal Pengumuman: <b>{{ $b->tgl_peng }}</b><br>
                             No. Pengumuman: <b>{{ $b->no_peng }}</b><br>
                             Sampai dengan Tanggal: <b>{{ $b->sampai_tanggal }}</b><br>
                             Tanggal SK: <b>{{ $b->tanggal_sk }}</b><br>
                             No SK: <b>{{ $b->no_sk }}</b><br>
-                            Keterangan: <b>@if (isset($b->total_biaya)) Rp. {{ number_format($b->total_biaya) }} @endif &emsp; {{ $b->tanggal_mulai }}</b><br>
+                            Keterangan: <b>{{ $b->keterangan }}</b><br>
                             Nama Kuasa: <b>{{ $b->nama_kuasa }}</b><br>
                         </div>
                         <div class="modal-footer">
@@ -359,7 +313,7 @@
                             <h5 class="modal-title" id="exampleModalLabel">Update Info Berkas</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form action="{{ route('berkas.update',$b->id) }}" method="POST" class="d-inline">
+                        <form action="{{ route('pemberian_hak.update',$b->id) }}" method="POST" class="d-inline">
                             @method('PUT')
                             @csrf
                             <div class="modal-body">
@@ -446,21 +400,21 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm">
-                                        No. Surat Undangan
-                                    </div>
-                                    <div class="col-sm">
-                                        <input type="text" id="{{ $b->id }}no_surat_undangan" name="no_surat_undangan"
-                                            class="form-control" value="{{ $b->no_surat_undangan }}">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm">
                                         Tanggal Surat Undangan
                                     </div>
                                     <div class="col-sm">
                                         <input type="date" id="{{ $b->id }}tanggal_surat_undangan"
                                             name="tanggal_surat_undangan" class="form-control"
                                             value="{{ $b->tanggal_surat_undangan }}">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm">
+                                        No. Surat Undangan
+                                    </div>
+                                    <div class="col-sm">
+                                        <input type="text" id="{{ $b->id }}no_surat_undangan" name="no_surat_undangan"
+                                            class="form-control" value="{{ $b->no_surat_undangan }}">
                                     </div>
                                 </div>
                                 <div class="row">
@@ -475,15 +429,6 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm">
-                                        Tanggal Surat Tugas
-                                    </div>
-                                    <div class="col-sm">
-                                        <input type="date" id="{{ $b->id }}tanggal_st" name="tanggal_st"
-                                            class="form-control" value="{{ $b->tanggal_st }}">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm">
                                         No. Surat Tugas
                                     </div>
                                     <div class="col-sm">
@@ -493,20 +438,29 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm">
-                                        Tanggal Ke Lapangan
+                                        Tanggal Surat Tugas
                                     </div>
                                     <div class="col-sm">
-                                        <input type="date" id="{{ $b->id }}tanggal_lap" name="tanggal_lap"
-                                            class="form-control" value="{{ $b->tanggal_lap }}">
+                                        <input type="date" id="{{ $b->id }}tanggal_st" name="tanggal_st"
+                                            class="form-control" value="{{ $b->tanggal_st }}">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm">
-                                        Tgl Risalah Panitia A
+                                        No. Ikhtisar
                                     </div>
                                     <div class="col-sm">
-                                        <input type="date" id="{{ $b->id }}tanggal_ris" name="tanggal_ris"
-                                            class="form-control" value="{{ $b->tanggal_ris }}">
+                                        <input type="text" id="{{ $b->id }}no_ikhtisar" name="no_ikhtisar" class="form-control"
+                                            value="{{ $b->no_ikhtisar }}">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm">
+                                        Tgl Ikhtisar
+                                    </div>
+                                    <div class="col-sm">
+                                        <input type="date" id="{{ $b->id }}tanggal_ikhtisar" name="tanggal_ikhtisar"
+                                            class="form-control" value="{{ $b->tanggal_ikhtisar }}">
                                     </div>
                                 </div>
                                 <div class="row">
@@ -520,12 +474,21 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm">
+                                        Tgl Risalah Panitia A
+                                    </div>
+                                    <div class="col-sm">
+                                        <input type="date" id="{{ $b->id }}tanggal_ris" name="tanggal_ris"
+                                            class="form-control" value="{{ $b->tanggal_ris }}">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm">
                                         No. SK Kepala Kantor untuk Risalah Panitia
                                     </div>
                                     <div class="col-sm">
-                                        <input type="text" id="{{ $b->id }}no_sk_kantah_panitia"
-                                            name="no_sk_kantah_panitia" class="form-control"
-                                            value="{{ $b->no_sk_kantah_panitia }}">
+                                        <input type="text" id="{{ $b->id }}no_sk_kantah_panitia_a"
+                                            name="no_sk_kantah_panitia_a" class="form-control"
+                                            value="{{ $b->no_sk_kantah_panitia_a }}">
                                     </div>
                                 </div>
                                 <div class="row">
@@ -533,9 +496,9 @@
                                         Tgl SK Kepala Kantor untuk Risalah Panitia
                                     </div>
                                     <div class="col-sm">
-                                        <input type="date" id="{{ $b->id }}tgl_sk_kantah_panitia"
-                                            name="tgl_sk_kantah_panitia" class="form-control"
-                                            value="{{ $b->tgl_sk_kantah_panitia }}">
+                                        <input type="date" id="{{ $b->id }}tgl_sk_kantah_panitia_a"
+                                            name="tgl_sk_kantah_panitia_a" class="form-control"
+                                            value="{{ $b->tgl_sk_kantah_panitia_a }}">
                                     </div>
                                 </div>
                                 <div class="row">
@@ -553,9 +516,9 @@
                                         Tgl Surat Penguasan Fisik Bidang Tanah
                                     </div>
                                     <div class="col-sm">
-                                        <input type="date" id="{{ $b->id }}tanggal_penugasan_fisik"
-                                            name="tanggal_penugasan_fisik" class="form-control"
-                                            value="{{ $b->tanggal_penugasan_fisik }}">
+                                        <input type="date" id="{{ $b->id }}tanggal_penguasan_fisik"
+                                            name="tanggal_penguasan_fisik" class="form-control"
+                                            value="{{ $b->tanggal_penguasan_fisik }}">
                                     </div>
                                 </div>
                                 <div class="row">
@@ -563,8 +526,9 @@
                                         No. Surat Keterangan Wali Nagari
                                     </div>
                                     <div class="col-sm">
-                                        <input type="text" id="{{ $b->id }}no_suket_wali" name="no_suket_wali"
-                                            class="form-control" value="{{ $b->no_suket_wali }}">
+                                        <input type="text" id="{{ $b->id }}no_suket_wali_nagari"
+                                            name="no_suket_wali_nagari" class="form-control"
+                                            value="{{ $b->no_suket_wali_nagari }}">
                                     </div>
                                 </div>
                                 <div class="row">
@@ -572,8 +536,9 @@
                                         Tgl Surat Ket. Wali Nagari
                                     </div>
                                     <div class="col-sm">
-                                        <input type="date" id="{{ $b->id }}tanggal_suket_wali" name="tanggal_suket_wali"
-                                            class="form-control" value="{{ $b->tanggal_suket_wali }}">
+                                        <input type="date" id="{{ $b->id }}tanggal_suket_wali_nagari"
+                                            name="tanggal_suket_wali_nagari" class="form-control"
+                                            value="{{ $b->tanggal_suket_wali_nagari }}">
                                     </div>
                                 </div>
                                 <div class="row">
@@ -583,6 +548,56 @@
                                     <div class="col-sm">
                                         <input type="text" id="{{ $b->id }}nama_wali_nagari" name="nama_wali_nagari"
                                             class="form-control" value="{{ $b->nama_wali_nagari }}">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm">
+                                        No. SK KAN
+                                    </div>
+                                    <div class="col-sm">
+                                        <input type="text" id="{{ $b->id }}no_sk_kan"
+                                            name="no_sk_kan" class="form-control"
+                                            value="{{ $b->no_sk_kan }}">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm">
+                                        Tgl SK KAN
+                                    </div>
+                                    <div class="col-sm">
+                                        <input type="date" id="{{ $b->id }}tanggal_sk_kan"
+                                            name="tanggal_sk_kan" class="form-control"
+                                            value="{{ $b->tanggal_sk_kan }}">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm">
+                                        Tgl Surat Setoran Pajak Daerah BPHTB
+                                    </div>
+                                    <div class="col-sm">
+                                        <input type="date" id="{{ $b->id }}tanggal_surat_setoran_bphtb"
+                                            name="tanggal_surat_setoran_bphtb" class="form-control"
+                                            value="{{ $b->tanggal_surat_setoran_bphtb }}">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm">
+                                        Tgl Surat Pernyataan Tanah-Tanah Yang Dipunyai
+                                    </div>
+                                    <div class="col-sm">
+                                        <input type="date" id="{{ $b->id }}tgl_pernyataan_tanah_yg_dipunyai"
+                                            name="tgl_pernyataan_tanah_yg_dipunyai" class="form-control"
+                                            value="{{ $b->tgl_pernyataan_tanah_yg_dipunyai }}">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm">
+                                        Tgl Surat Pernyataan Pemasangan Tanda Batas tanggal 
+                                    </div>
+                                    <div class="col-sm">
+                                        <input type="date" id="{{ $b->id }}tanggal_tanda_batas"
+                                            name="tanggal_tanda_batas" class="form-control"
+                                            value="{{ $b->tanggal_tanda_batas }}">
                                     </div>
                                 </div>
                                 <div class="row">
@@ -606,68 +621,68 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm">
-                                        Alas Hak
+                                        Penggunaan Lahan Sesuai RTRW
                                     </div>
                                     <div class="col-sm">
-                                        <input type="text" id="{{ $b->id }}alas_hak" name="alas_hak"
-                                            class="form-control" value="{{ $b->alas_hak }}">
+                                        <input type="text" id="{{ $b->id }}penggunaan_rtrw" name="penggunaan_rtrw"
+                                            class="form-control" value="{{ $b->penggunaan_rtrw }}">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm">
-                                        Tgl Alas Hak
+                                        Tanggal SK KAN
                                     </div>
                                     <div class="col-sm">
-                                        <input type="date" id="{{ $b->id }}tanggal_alas_hak" name="tanggal_alas_hak"
-                                            class="form-control" value="{{ $b->tanggal_alas_hak }}">
+                                        <input type="date" id="{{ $b->id }}tanggal_sk_kan" name="tanggal_sk_kan"
+                                            class="form-control" value="{{ $b->tanggal_sk_kan }}">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm">
-                                        Tgl Pengumuman
+                                        No. SK KAN
                                     </div>
                                     <div class="col-sm">
-                                        <input type="date" id="{{ $b->id }}tanggal_peng" name="tanggal_peng"
-                                            class="form-control" value="{{ $b->tanggal_peng }}">
+                                        <input type="text" id="{{ $b->id }}no_sk_kan" name="no_sk_kan"
+                                            class="form-control" value="{{ $b->no_sk_kan }}">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm">
-                                        No. Pengumuman
+                                        Sepadan Utara
                                     </div>
                                     <div class="col-sm">
-                                        <input type="text" id="{{ $b->id }}no_peng" name="no_peng" class="form-control"
-                                            value="{{ $b->no_peng }}">
+                                        <input type="text" id="{{ $b->id }}utara" name="utara"
+                                            class="form-control" value="{{ $b->utara }}">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm">
-                                        Sampai dengan Tanggal
+                                        Sepadan Selatan
                                     </div>
                                     <div class="col-sm">
-                                        <input type="date" id="{{ $b->id }}sampai_tanggal" name="sampai_tanggal"
-                                            class="form-control" value="{{ $b->sampai_tanggal }}">
+                                        <input type="text" id="{{ $b->id }}selatan" name="selatan"
+                                            class="form-control" value="{{ $b->selatan }}">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm">
-                                        Tanggal SK
+                                        Sepadan Timur
                                     </div>
                                     <div class="col-sm">
-                                        <input type="date" id="{{ $b->id }}tanggal_sk" name="tanggal_sk"
-                                            class="form-control" value="{{ $b->tanggal_sk }}">
+                                        <input type="text" id="{{ $b->id }}timur" name="timur"
+                                            class="form-control" value="{{ $b->timur }}">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm">
-                                        No. SK
+                                        Sepadan Barat
                                     </div>
                                     <div class="col-sm">
-                                        <input type="text" id="{{ $b->id }}no_sk" name="no_sk" class="form-control"
-                                            value="{{ $b->no_sk }}">
+                                        <input type="text" id="{{ $b->id }}barat" name="barat"
+                                            class="form-control" value="{{ $b->barat }}">
                                     </div>
                                 </div>
-                                <!-- <div class="row">
+                                <div class="row">
                                     <div class="col-sm">
                                         Tanggal Berkas Didaftarkan
                                     </div>
@@ -676,23 +691,7 @@
                                             name="tanggal_berkas_didaftarkan" class="form-control"
                                             value="{{ $b->tanggal_berkas_didaftarkan }}">
                                     </div>
-                                </div> -->
-                                <!-- <div class="row">
-                                <div class="col-sm">
-                                            Tanggal SK Kerapatan Adat Nagari
-                                        </div>
-                                <div class="col-sm">
-                                            <input type="date" id="{{ $b->id }}tanggal_sk_kan" name="tanggal_sk_kan" class="form-control" value="{{ $b->tanggal_sk_kan }}">
-                                        </div>
-                            </div>
-                                    <div class="row">
-                                <div class="col-sm">
-                                            No. SK Kerapatan Adat Nagari
-                                        </div>
-                                <div class="col-sm">
-                                            <input type="text" id="{{ $b->id }}no_sk_kan" name="no_sk_kan" class="form-control" value="{{ $b->no_sk_kan }}">
-                                        </div>
-                            </div> -->
+                                </div>
                                 <div class="row">
                                     <div class="col-sm">
                                         Nama Kuasa
@@ -705,20 +704,11 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm">
-                                        Total Biaya
+                                        Keterangan
                                     </div>
                                     <div class="col-sm">
-                                        <input type="text" name="total_biaya"
-                                            class="form-control" value="{{ $b->total_biaya }}">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm">
-                                        Tanggal Mulai
-                                    </div>
-                                    <div class="col-sm">
-                                        <input type="date" name="tanggal_mulai"
-                                            class="form-control" value="{{ $b->tanggal_mulai}}">
+                                        <textarea id="{{ $b->id }}ket" name="ket"
+                                            class="form-control">{{ $b->ket }}</textarea>
                                     </div>
                                 </div>
                                 @php
@@ -774,35 +764,6 @@
                                             class="form-control '.$b->id.'nik_pemohon" value="">
                                     </div>
                                 </div>';
-                                }
-                                $result = json_decode($b->tempat_lahir_pemohon);
-                                if (json_last_error() === JSON_ERROR_NONE) {
-                                $tempat_lahir = json_decode($b->tempat_lahir_pemohon);
-                                echo '
-
-                                <div class="row">
-                                    <div class="col-sm">
-                                        Tempat Lahir Pemohon
-                                    </div>
-                                    <div class="col-sm">
-                                        <input type="text" id="'.$b->id.'tempat_lahir_pemohon" name="tempat_lahir_pemohon[]"
-                                            class="form-control '.$b->id.'tempat_lahir_pemohon" value="'.$tempat_lahir[$i].'">
-                                    </div>
-                                </div>
-                                ';
-                                }
-                                else {
-                                echo '
-                                <div class="row">
-                                    <div class="col-sm">
-                                        Tempat Lahir Pemohon
-                                    </div>
-                                    <div class="col-sm">
-                                        <input type="text" id="'.$b->id.'tempat_lahir_pemohon" name="tempat_lahir_pemohon[]"
-                                            class="form-control '.$b->id.'tempat_lahir_pemohon" value="">
-                                    </div>
-                                </div>
-                                ';
                                 }
                                 $result = json_decode($b->tanggal_lahir_pemohon);
                                 if (json_last_error() === JSON_ERROR_NONE) {
@@ -862,7 +823,34 @@
                                 </div>
                                 ';
                                 }
-                                
+                                $result = json_decode($b->pekerjaan);
+                                if (json_last_error() === JSON_ERROR_NONE) {
+                                $pekerjaan = json_decode($b->pekerjaan);
+                                echo '
+                                <div class="row">
+                                    <div class="col-sm">
+                                        Pekerjaan
+                                    </div>
+                                    <div class="col-sm">
+                                        <input type="text" id="'.$b->id .'pekerjaan" name="pekerjaan[]"
+                                            class="form-control '.$b->id .'pekerjaan" value="'.$pekerjaan[$i].'">
+                                    </div>
+                                </div>
+                                ';
+                                }
+                                else {
+                                echo '
+                                <div class="row">
+                                    <div class="col-sm">
+                                        Pekerjaan
+                                    </div>
+                                    <div class="col-sm">
+                                        <input type="text" id="'.$b->id.'pekerjaan" name="pekerjaan[]"
+                                            class="form-control '.$b->id.'pekerjaan" value="">
+                                    </div>
+                                </div>
+                                ';
+                                }
 
                                 echo '
                                 <div class="row">
@@ -904,15 +892,6 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm">
-                                    Tempat Lahir Pemohon
-                                </div>
-                                <div class="col-sm">
-                                    <input type="text" id="'.$b->id.'tempat_lahir_pemohon" name="tempat_lahir_pemohon[]"
-                                        class="form-control '.$b->id.'tempat_lahir_pemohon" value="">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm">
                                     Tgl Lahir Pemohon
                                 </div>
                                 <div class="col-sm">
@@ -929,6 +908,15 @@
                                 <div class="col-sm">
                                     <input type="text" id="'.$b->id.'alamat_pemohon" name="alamat_pemohon[]"
                                         class="form-control '.$b->id.'alamat_pemohon" value="'.$b->alamat_pemohon.'">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm">
+                                    Pekerjaan
+                                </div>
+                                <div class="col-sm">
+                                    <input type="text" id="'.$b->id.'pekerjaan" name="pekerjaan[]"
+                                        class="form-control '.$b->id.'pekerjaan" value="'.$b->pekerjaan.'">
                                 </div>
                             </div>
                             ';
@@ -957,15 +945,6 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm">
-                                    Tempat Lahir Pemohon
-                                </div>
-                                <div class="col-sm">
-                                    <input type="text" id="'.$b->id.'tempat_lahir_pemohon" name="tempat_lahir_pemohon[]"
-                                        class="form-control '.$b->id.'tempat_lahir_pemohon" value="">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm">
                                     Tgl Lahir Pemohon
                                 </div>
                                 <div class="col-sm">
@@ -981,6 +960,15 @@
                                 <div class="col-sm">
                                     <input type="text" id="'.$b->id.'alamat_pemohon" name="alamat_pemohon[]"
                                         class="form-control '.$b->id.'alamat_pemohon" value="">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm">
+                                    Pekerjaan
+                                </div>
+                                <div class="col-sm">
+                                    <input type="text" id="'.$b->id.'pekerjaan" name="pekerjaan[]"
+                                        class="form-control '.$b->id.'pekerjaan" value="">
                                 </div>
                             </div>
 
@@ -1039,14 +1027,14 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-sm">
-                                    Tempat Lahir Pemohon
+                                    <div class="col-sm">
+                                        Pekerjaan
+                                    </div>
+                                    <div class="col-sm">
+                                        <input type="text" id="'.$b->id.'pekerjaan" name="pekerjaan[]"
+                                            class="form-control '.$b->id.'pekerjaan" value="">
+                                    </div>
                                 </div>
-                                <div class="col-sm">
-                                    <input type="text" id="'.$b->id.'tempat_lahir_pemohon" name="tempat_lahir_pemohon[]"
-                                        class="form-control '.$b->id.'tempat_lahir_pemohon" value="">
-                                </div>
-                            </div>
                                 <div class="row">
                                 <div class="col-sm">
                                     &emsp;
@@ -1064,20 +1052,14 @@
                                 });
                                 
                             </script>
-                            </div>
-                            <div
-                                class="modal-footer">
-                                <button
-                                    type="button"
-                                    class="btn btn-secondary"
-                                    data-bs-dismiss="modal">Close</button>
-                                <button
-                                    type="submit"
-                                    class="btn btn-primary">Update</button>
-                            </div>
-                        </form>
                     </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </div>
+                    </form>
                 </div>
+            </div>
             </div>
 
             <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
@@ -1093,10 +1075,10 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            Anda yakin ingin menghapus berkas {{ $b->no_berkas }}: {{ $b->nama_pemohon }} ?
+                            Anda yakin ingin menghapus berkas {{ $nama_p }} ?
                         </div>
                         <div class="modal-footer">
-                            <form action="{{ route('berkas.destroy',$b->id) }}" method="POST" class="d-inline">
+                            <form action="{{ route('pemberian_hak.destroy',$b->id) }}" method="POST" class="d-inline">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger btn-sm"><b>Delete</b></button>
@@ -1107,29 +1089,50 @@
                 </div>
             </div>
 
-            <!-- <a class="btn btn-primary btn-sm" href="{{ route('berkas.edit',$b->id) }}">Edit</a> -->
+            <!-- <a class="btn btn-primary btn-sm" href="{{ route('pemberian_hak.edit',$b->id) }}">Edit</a> -->
 
         </td>
         <td>
-            <button class="btn btn-light btn-sm" style="border-color: gray;" onclick="cek_st({{ $b->id }})">ST</button>
-            <button class="btn btn-light btn-sm" style="border-color: gray;" onclick="cek_undangan({{ $b->id }})">Undangan</button>
-            <button class="btn btn-light btn-sm" style="border-color: gray;" onclick="cek_ris({{ $b->id }})">Risalah</button>
-            <button class="btn btn-light btn-sm" style="border-color: gray;" onclick="cek_peng({{ $b->id }})">Pengumuman</button>
-            <button class="btn btn-light btn-sm" style="border-color: gray;" onclick="cek_sk({{ $b->id }})">SK</button>
+            <a onclick="cek_undangan({{ $b->id }})"><button class="btn btn-light btn-sm"
+                    style="border-color: gray; padding: 2px;">Undangan</button></a>
+            <a onclick="cek_st({{ $b->id }})"><button
+                    class="btn btn-light btn-sm" style="border-color: gray; padding: 2px;">ST</button></a>
+            <a onclick="cek_ikhtisar({{ $b->id }})"><button class="btn btn-light btn-sm"
+                    style="border-color: gray; padding: 2px;">Ikhtisar</button></a>
+            <a onclick="cek_ris({{ $b->id }})"><button class="btn btn-light btn-sm" 
+                    style="border-color: gray; padding: 2px;">Risalah</button></a>
+            <a onclick="cek_rpd({{ $b->id }})"><button class="btn btn-light btn-sm" 
+                    style="border-color: gray; padding: 2px;">RPD</button></a>
+            <a onclick="cek_telaahan({{ $b->id }})"><button class="btn btn-light btn-sm" 
+                    style="border-color: gray; padding: 2px;">Telaahan Staff</button></a>
+            <a onclick="cek_sk({{ $b->id }})"><button class="btn btn-light btn-sm" 
+                    style="border-color: gray; padding: 2px;">SK</button></a>
         </td>
     </tr>
     @endforeach
 </table>
-{{ $berkas->withQueryString()->links('pagination::bootstrap-4') }}
-<div class="copy hide" id="tempat-nama" style="visibility: hidden;">
+{{ $sql->withQueryString()->links('pagination::bootstrap-4') }}
+<!-- <div class="copy hide" id="tempat-nama" style="visibility: hidden;">
     <div class="control-group">
         <label>Nama</label>
+        <input type="text" name="nama[]" class="form-control">
+        <label>Jenis Kelamin</label>
+        <input type="text" name="jk[]" class="form-control">
+        <label>Alamat</label>
+        <input type="text" name="alamat[]" class="form-control">
+        <label>Jurusan</label>
+        <select class="form-control" name="jurusan">
+            <option>Sistem Informasi</option>
+            <option>Informatika</option>
+            <option>Akuntansi</option>
+            <option>DKV</option>
+        </select>
         <br>
         <button class="btn btn-danger remove" type="button"><i class="glyphicon glyphicon-remove"></i> Remove</button>
         <hr>
     </div>
-</div>
-@if($berkas->total()>0)
+</div> -->
+@if($sql->total()>0)
 <script>
     function cek_undangan(id) {
         let p = false;
@@ -1167,12 +1170,12 @@
                     '<i class="fa fa-thumbs-up"></i> Oke!',
                 confirmButtonAriaLabel: 'Thumbs up, great!',
                 cancelButtonText:
-                    `<a href="{{ route('print') }}/undangan/${id}" style= "color: lightgray"><i class="fa fa-thumbs-down"></i> tetap download</a>`,
+                    `<a href="{{ route('print') }}/pemberian_hak/undangan/${id}" style= "color: lightgray"><i class="fa fa-thumbs-down"></i> tetap download</a>`,
                 cancelButtonAriaLabel: 'Thumbs down'
             })
         }
         else {
-            location.href = "{{ route('print') }}/undangan/"+id; 
+            location.href = "{{ route('print') }}/pemberian_hak/undangan/"+id; 
         }
     }
 
@@ -1217,12 +1220,102 @@
                     '<i class="fa fa-thumbs-up"></i> Oke!',
                 confirmButtonAriaLabel: 'Thumbs up, great!',
                 cancelButtonText:
-                    `<a href="{{ route('print') }}/ST/${id}" style= "color: lightgray"><i class="fa fa-thumbs-down"></i> tetap download</a>`,
+                    `<a href="{{ route('print') }}/pemberian_hak/ST/${id}" style= "color: lightgray"><i class="fa fa-thumbs-down"></i> tetap download</a>`,
                 cancelButtonAriaLabel: 'Thumbs down'
             })
         }
         else {
-            location.href = "{{ route('print') }}/ST/"+id; 
+            location.href = "{{ route('print') }}/pemberian_hak/ST/"+id; 
+        }
+    }
+
+    function cek_ikhtisar(id) {
+        let p = false;
+        let warning = "Data berikut belum terisi:<br/>";
+        if (!document.getElementById(`${id}no_ikhtisar`).value) {
+            warning = `${warning} - Nomor Ikhtisar<br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}tanggal_ikhtisar`).value) {
+            warning = `${warning} - Tanggal Ikhtisar<br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}no_pbt`).value) {
+            warning = `${warning} - Nomor PBT<br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}tanggal_pbt`).value) {
+            warning = `${warning} - Tanggal PBT<br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}no_ris`).value) {
+            warning = `${warning} - Nomor Risalah<br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}tanggal_ris`).value) {
+            warning = `${warning} - Tanggal Risalah<br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}nib`).value) {
+            warning = `${warning} - NIB<br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}luas`).value) {
+            warning = `${warning} - Luas Tanah<br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}jorong`).value) {
+            warning = `${warning} - Jorong (letak tanah)<br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}nagari`).value) {
+            warning = `${warning} - Nagari (letak tanah)<br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}kecamatan`).value) {
+            warning = `${warning} - Kecamatan (letak tanah)<br/>`;
+            p = true;
+        }
+        if ($(`.${id}nik_pemohon`).val() == "") {
+            warning = `${warning} - NIK Pemohon<br/>`;
+            p = true;
+
+        }
+        if ($(`.${id}tempat_lahir_pemohon`).val() == "") {
+            warning = `${warning} - Tempat lahir pemohon<br/>`;
+            p = true;
+        }
+        if ($(`.${id}tanggal_lahir_pemohon`).val() == "") {
+            warning = `${warning} - Tanggal lahir pemohon<br/>`;
+            p = true;
+        }
+        if ($(`.${id}alamat_pemohon`).val() == "") {
+            warning = `${warning} - Alamat pemohon<br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}rencana_penggunaan`).value) {
+            warning = `${warning} - Rencana Penggunaan<br/>`;
+            p = true;
+        }
+
+        if (p == true) {
+            Swal.fire({
+                title: '<strong><u>warning</u></strong>',
+                icon: 'info',
+                html: warning,
+                showCloseButton: true,
+                showCancelButton: true,
+                focusConfirm: false,
+                confirmButtonText:
+                    '<i class="fa fa-thumbs-up"></i> Oke!',
+                confirmButtonAriaLabel: 'Thumbs up, great!',
+                cancelButtonText:
+                    `<a href="{{ route('print') }}/pemberian_hak/ikhtisar/${id}" style= "color: lightgray"><i class="fa fa-thumbs-down"></i> tetap download</a>`,
+                cancelButtonAriaLabel: 'Thumbs down'
+            })
+        }
+        else {
+            location.href = "{{ route('print') }}/pemberian_hak/ikhtisar/"+id; 
         }
     }
 
@@ -1307,19 +1400,23 @@
             warning = `${warning} - Rencana Penggunaan<br/>`;
             p = true;
         }
+        if (!document.getElementById(`${id}penggunaan_rtrw`).value) {
+            warning = `${warning} - Penggunaan (RTRW)<br/>`;
+            p = true;
+        }
         if (!document.getElementById(`${id}tanggal_surat_permohonan`).value) {
             warning = `${warning} - Tanggal Surat Permohonan<br/>`;
             p = true;
         }
-        if (!document.getElementById(`${id}tanggal_penugasan_fisik`).value) {
+        if (!document.getElementById(`${id}tanggal_penguasan_fisik`).value) {
             warning = `${warning} - Tanggal Penguasan Fisik<br/>`;
             p = true;
         }
-        if (!document.getElementById(`${id}no_suket_wali`).value) {
+        if (!document.getElementById(`${id}no_suket_wali_nagari`).value) {
             warning = `${warning} - No. Surat Keterangan Wali Nagari<br/>`;
             p = true;
         }
-        if (!document.getElementById(`${id}tanggal_suket_wali`).value) {
+        if (!document.getElementById(`${id}tanggal_suket_wali_nagari`).value) {
             warning = `${warning} - Tanggal Surat Keterangan Wali Nagari<br/>`;
             p = true;
         }
@@ -1327,22 +1424,51 @@
             warning = `${warning} - Nama Wali Nagari<br/>`;
             p = true;
         }
-        if (!document.getElementById(`${id}no_sk_kantah_panitia`).value) {
+        if (!document.getElementById(`${id}no_sk_kantah_panitia_a`).value) {
             warning = `${warning} - Nomor SK Kepala Kantah untuk Risalah Panitia<br/>`;
             p = true;
         }
-        if (!document.getElementById(`${id}tgl_sk_kantah_panitia`).value) {
+        if (!document.getElementById(`${id}tgl_sk_kantah_panitia_a`).value) {
             warning = `${warning} - Tanggal SK Kepala Kantah untuk Risalah Panitia<br/>`;
             p = true;
         }
-        if (!document.getElementById(`${id}alas_hak`).value) {
-            warning = `${warning} - Alas Hak<br/>`;
+        if (!document.getElementById(`${id}no_sk_kan`).value) {
+            warning = `${warning} - No. Surat Keputusan Kerapatan Adat Nagari (SK KAN) <br/>`;
             p = true;
         }
-        if (!document.getElementById(`${id}tanggal_alas_hak`).value) {
-            warning = `${warning} - Tanggal Alas Hak<br/>`;
+        if (!document.getElementById(`${id}tanggal_sk_kan`).value) {
+            warning = `${warning} - Tanggal Surat Keputusan Kerapatan Adat Nagari (SK KAN) <br/>`;
             p = true;
         }
+        if (!document.getElementById(`${id}tanggal_surat_setoran_bphtb`).value) {
+            warning = `${warning} - Tanggal Surat Setoran Pajak Daerah Bea Perolehan Hak Atas Tanah Dan Bangunan (BPHTB) <br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}tgl_pernyataan_tanah_yg_dipunyai`).value) {
+            warning = `${warning} - Tanggal Surat Pernyataan Tanah - Tanah yang dipunyai Pemohon <br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}tanggal_tanda_batas`).value) {
+            warning = `${warning} - Tanggal Surat Pernyataan Pemasangan Tanda Batas <br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}utara`).value) {
+            warning = `${warning} - Sepadan utara <br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}selatan`).value) {
+            warning = `${warning} - Sepadan selatan <br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}timur`).value) {
+            warning = `${warning} - Sepadan timur <br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}barat`).value) {
+            warning = `${warning} - Sepadan barat <br/>`;
+            p = true;
+        }
+        
 
         if (p == true) {
             Swal.fire({
@@ -1356,18 +1482,42 @@
                     '<i class="fa fa-thumbs-up"></i> Oke!',
                 confirmButtonAriaLabel: 'Thumbs up, great!',
                 cancelButtonText:
-                    `<a href="{{ route('print') }}/risalah/${id}" style= "color: lightgray"><i class="fa fa-thumbs-down"></i> tetap download</a>`,
+                    `<a href="{{ route('print') }}/pemberian_hak/risalah/${id}" style= "color: lightgray"><i class="fa fa-thumbs-down"></i> tetap download</a>`,
                 cancelButtonAriaLabel: 'Thumbs down'
             })
         }
         else {
-            location.href = "{{ route('print') }}/risalah/"+id; 
+            location.href = "{{ route('print') }}/pemberian_hak/risalah/"+id; 
         }
     }
 
-    function cek_peng(id) {
+    function cek_rpd(id) {
         let p = false;
         let warning = "Data berikut belum terisi:<br/>";
+        if (!document.getElementById(`${id}no_pbt`).value) {
+            warning = `${warning} - Nomor PBT<br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}tanggal_pbt`).value) {
+            warning = `${warning} - Tanggal PBT<br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}no_ris`).value) {
+            warning = `${warning} - Nomor Risalah<br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}tanggal_ris`).value) {
+            warning = `${warning} - Tanggal Risalah<br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}no_ikhtisar`).value) {
+            warning = `${warning} - Nomor Risalah<br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}tanggal_ikhtisar`).value) {
+            warning = `${warning} - Tanggal Ikhtisar<br/>`;
+            p = true;
+        }
         if (!document.getElementById(`${id}nib`).value) {
             warning = `${warning} - NIB<br/>`;
             p = true;
@@ -1388,6 +1538,80 @@
             warning = `${warning} - Kecamatan (letak tanah)<br/>`;
             p = true;
         }
+        if ($(`.${id}nik_pemohon`).val() == "") {
+            warning = `${warning} - NIK Pemohon<br/>`;
+            p = true;
+
+        }
+        if ($(`.${id}tempat_lahir_pemohon`).val() == "") {
+            warning = `${warning} - Tempat lahir pemohon<br/>`;
+            p = true;
+        }
+        if ($(`.${id}tanggal_lahir_pemohon`).val() == "") {
+            warning = `${warning} - Tanggal lahir pemohon<br/>`;
+            p = true;
+        }
+        if ($(`.${id}alamat_pemohon`).val() == "") {
+            warning = `${warning} - Alamat pemohon<br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}penggunaan_saat_ini`).value) {
+            warning = `${warning} - Penggunaan lahan saat ini<br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}rencana_penggunaan`).value) {
+            warning = `${warning} - Rencana Penggunaan<br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}penggunaan_rtrw`).value) {
+            warning = `${warning} - Penggunaan (RTRW)<br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}tanggal_surat_permohonan`).value) {
+            warning = `${warning} - Tanggal Surat Permohonan<br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}tanggal_penguasan_fisik`).value) {
+            warning = `${warning} - Tanggal Penguasan Fisik<br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}no_suket_wali_nagari`).value) {
+            warning = `${warning} - No. Surat Keterangan Wali Nagari<br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}tanggal_suket_wali_nagari`).value) {
+            warning = `${warning} - Tanggal Surat Keterangan Wali Nagari<br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}no_sk_kantah_panitia_a`).value) {
+            warning = `${warning} - Nomor SK Kepala Kantah untuk Risalah Panitia<br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}tgl_sk_kantah_panitia_a`).value) {
+            warning = `${warning} - Tanggal SK Kepala Kantah untuk Risalah Panitia<br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}no_sk_kan`).value) {
+            warning = `${warning} - No. Surat Keputusan Kerapatan Adat Nagari (SK KAN) <br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}tanggal_sk_kan`).value) {
+            warning = `${warning} - Tanggal Surat Keputusan Kerapatan Adat Nagari (SK KAN) <br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}tanggal_surat_setoran_bphtb`).value) {
+            warning = `${warning} - Tanggal Surat Setoran Pajak Daerah Bea Perolehan Hak Atas Tanah Dan Bangunan (BPHTB) <br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}tgl_pernyataan_tanah_yg_dipunyai`).value) {
+            warning = `${warning} - Tanggal Surat Pernyataan Tanah - Tanah yang dipunyai Pemohon <br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}tanggal_tanda_batas`).value) {
+            warning = `${warning} - Tanggal Surat Pernyataan Pemasangan Tanda Batas <br/>`;
+            p = true;
+        }
+        
 
         if (p == true) {
             Swal.fire({
@@ -1401,12 +1625,114 @@
                     '<i class="fa fa-thumbs-up"></i> Oke!',
                 confirmButtonAriaLabel: 'Thumbs up, great!',
                 cancelButtonText:
-                    `<a href="{{ route('print') }}/peng/${id}" style= "color: lightgray"><i class="fa fa-thumbs-down"></i> tetap download</a>`,
+                    `<a href="{{ route('print') }}/pemberian_hak/rpd/${id}" style= "color: lightgray"><i class="fa fa-thumbs-down"></i> tetap download</a>`,
                 cancelButtonAriaLabel: 'Thumbs down'
             })
         }
         else {
-            location.href = "{{ route('print') }}/peng/"+id; 
+            location.href = "{{ route('print') }}/pemberian_hak/rpd/"+id; 
+        }
+    }
+
+    function cek_telaahan(id) {
+        let p = false;
+        let warning = "Data berikut belum terisi:<br/>";
+        if (!document.getElementById(`${id}no_pbt`).value) {
+            warning = `${warning} - Nomor PBT<br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}tanggal_pbt`).value) {
+            warning = `${warning} - Tanggal PBT<br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}no_ris`).value) {
+            warning = `${warning} - Nomor Risalah<br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}tanggal_ris`).value) {
+            warning = `${warning} - Tanggal Risalah<br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}no_ikhtisar`).value) {
+            warning = `${warning} - Nomor Risalah<br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}tanggal_ikhtisar`).value) {
+            warning = `${warning} - Tanggal Ikhtisar<br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}nib`).value) {
+            warning = `${warning} - NIB<br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}jorong`).value) {
+            warning = `${warning} - Jorong (letak tanah)<br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}nagari`).value) {
+            warning = `${warning} - Nagari (letak tanah)<br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}kecamatan`).value) {
+            warning = `${warning} - Kecamatan (letak tanah)<br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}tanggal_surat_permohonan`).value) {
+            warning = `${warning} - Tanggal Surat Permohonan<br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}tanggal_penguasan_fisik`).value) {
+            warning = `${warning} - Tanggal Penguasan Fisik<br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}no_suket_wali_nagari`).value) {
+            warning = `${warning} - No. Surat Keterangan Wali Nagari<br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}tanggal_suket_wali_nagari`).value) {
+            warning = `${warning} - Tanggal Surat Keterangan Wali Nagari<br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}no_sk_kan`).value) {
+            warning = `${warning} - No. Surat Keputusan Kerapatan Adat Nagari (SK KAN) <br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}tanggal_sk_kan`).value) {
+            warning = `${warning} - Tanggal Surat Keputusan Kerapatan Adat Nagari (SK KAN) <br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}tanggal_surat_setoran_bphtb`).value) {
+            warning = `${warning} - Tanggal Surat Setoran Pajak Daerah Bea Perolehan Hak Atas Tanah Dan Bangunan (BPHTB) <br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}tgl_pernyataan_tanah_yg_dipunyai`).value) {
+            warning = `${warning} - Tanggal Surat Pernyataan Tanah - Tanah yang dipunyai Pemohon <br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}tanggal_tanda_batas`).value) {
+            warning = `${warning} - Tanggal Surat Pernyataan Pemasangan Tanda Batas <br/>`;
+            p = true;
+        }
+        
+
+        if (p == true) {
+            Swal.fire({
+                title: '<strong><u>warning</u></strong>',
+                icon: 'info',
+                html: warning,
+                showCloseButton: true,
+                showCancelButton: true,
+                focusConfirm: false,
+                confirmButtonText:
+                    '<i class="fa fa-thumbs-up"></i> Oke!',
+                confirmButtonAriaLabel: 'Thumbs up, great!',
+                cancelButtonText:
+                    `<a href="{{ route('print') }}/pemberian_hak/telaahan/${id}" style= "color: lightgray"><i class="fa fa-thumbs-down"></i> tetap download</a>`,
+                cancelButtonAriaLabel: 'Thumbs down'
+            })
+        }
+        else {
+            location.href = "{{ route('print') }}/pemberian_hak/telaahan/"+id; 
         }
     }
 
@@ -1414,19 +1740,95 @@
         let p = false;
         let warning = "Data berikut belum terisi:<br/>";
 
-        if (!document.getElementById(`${id}no_peng`).value) {
-            warning = `${warning} - Nomor Pengumuman<br/>`;
-            p = true;
-        }
-        if (!document.getElementById(`${id}tanggal_peng`).value) {
-            warning = `${warning} - Tanggal Pengumuman<br/>`;
-            p = true;
-        }
         if (!document.getElementById(`${id}nagari`).value) {
             warning = `${warning} - Nagari<br/>`;
             p = true;
         }
-
+        if (!document.getElementById(`${id}tanggal_surat_permohonan`).value) {
+            warning = `${warning} - Tanggal surat permohonan<br/>`;
+            p=true;
+        }
+        if (!document.getElementById(`${id}tanggal_berkas_didaftarkan`).value) {
+            warning = `${warning} - Tanggal berkas di daftarkan<br/>`;
+            p=true;
+        }
+        if (!document.getElementById(`${id}no_pbt`).value) {
+            warning = `${warning} - Nomor PBT<br/>`;
+            p=true;
+        }
+        if (!document.getElementById(`${id}tanggal_pbt`).value) {
+            warning = `${warning} - Tanggal PBT<br/>`;
+            p=true;
+        }
+        if (!document.getElementById(`${id}no_ris`).value) {
+            warning = `${warning} - Nomor Risalah<br/>`;
+            p=true;
+        }
+        if (!document.getElementById(`${id}tanggal_ris`).value) {
+            warning = `${warning} - Tanggal Risalah<br/>`;
+            p=true;
+        }
+        if (!document.getElementById(`${id}nib`).value) {
+            warning = `${warning} - NIB<br/>`;
+            p=true;
+        }
+        if (!document.getElementById(`${id}luas`).value) {
+            warning = `${warning} - Luas Tanah<br/>`;
+            p=true;
+        }
+        if (!document.getElementById(`${id}jorong`).value) {
+            warning = `${warning} - Jorong (letak tanah)<br/>`;
+            p=true;
+        }
+        if (!document.getElementById(`${id}nagari`).value) {
+            warning = `${warning} - Nagari (letak tanah)<br/>`;
+            p=true;
+        }
+        if (!document.getElementById(`${id}kecamatan`).value) {
+            warning = `${warning} - Kecamatan (letak tanah)<br/>`;
+            p=true;
+        }
+        if (!document.getElementById(`${id}tanggal_lahir_pemohon`).value) {
+            warning = `${warning} - Tanggal lahir pemohon<br/>`;
+            p=true;
+        }
+        if (!document.getElementById(`${id}alamat_pemohon`).value) {
+            warning = `${warning} - Alamat pemohon<br/>`;
+            p=true;
+        }
+        if (!document.getElementById(`${id}penggunaan_saat_ini`).value) {
+            warning = `${warning} - Penggunaan lahan saat ini<br/>`;
+            p=true;
+        }
+        if (!document.getElementById(`${id}rencana_penggunaan`).value) {
+            warning = `${warning} - Rencana Penggunaan<br/>`;
+            p=true;
+        }
+        if (!document.getElementById(`${id}no_sk_kan`).value) {
+            warning = `${warning} - No. Surat Keputusan Kerapatan Adat Nagari (SK KAN) <br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}tanggal_sk_kan`).value) {
+            warning = `${warning} - Tanggal Surat Keputusan Kerapatan Adat Nagari (SK KAN) <br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}no_suket_wali_nagari`).value) {
+            warning = `${warning} - No. Surat Keterangan Wali Nagari<br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}tanggal_suket_wali_nagari`).value) {
+            warning = `${warning} - Tanggal Surat Keterangan Wali Nagari<br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}no_ris`).value) {
+            warning = `${warning} - Nomor Risalah<br/>`;
+            p = true;
+        }
+        if (!document.getElementById(`${id}tanggal_ris`).value) {
+            warning = `${warning} - Tanggal Risalah<br/>`;
+            p = true;
+        }
+        //lanjut sk
         if (p == true) {
             Swal.fire({
                 title: '<strong><u>warning</u></strong>',
@@ -1439,15 +1841,39 @@
                     '<i class="fa fa-thumbs-up"></i> Oke!',
                 confirmButtonAriaLabel: 'Thumbs up, great!',
                 cancelButtonText:
-                    `<a href="{{ route('print') }}/sk/${id}" style= "color: lightgray"><i class="fa fa-thumbs-down"></i> tetap download</a>`,
+                    `<a href="{{ route('print') }}/pemberian_hak/sk/${id}" style="color: lightgray"><i class="fa fa-thumbs-down"></i> tetap download</a>`,
                 cancelButtonAriaLabel: 'Thumbs down'
             })
         }
         else {
-            location.href = "{{ route('print') }}/sk/"+id; 
+            location.href = "{{ route('print') }}/pemberian_hak/sk/"+id; 
         }
     }
 
+    // function cek_sk(id){
+    //     let p = false;
+    //     let warning = "Data berikut belum terisi:<br/>";
+    //     warning = `${warning} - Tanggal Surat Permohonan<br/>`;
+    //     warning = `${warning} - Tanggal Berkas Didaftarkan<br/>`;
+
+    
+    //     if(p==true){
+    //         Swal.fire({
+    //         title: '<strong><u>warning</u></strong>',
+    //         icon: 'info',
+    //         html: warning,
+    //         showCloseButton: true,
+    //         showCancelButton: false,
+    //         focusConfirm: false,
+    //         confirmButtonText:
+    //             '<i class="fa fa-thumbs-up"></i> Oke!',
+    //         confirmButtonAriaLabel: 'Thumbs up, great!',
+    //         cancelButtonText:
+    //             '<i class="fa fa-thumbs-down"></i> Oke!',
+    //         cancelButtonAriaLabel: 'Thumbs down'
+    //         })
+    //     }
+    // }
 
 </script>
 @endif
@@ -1457,7 +1883,6 @@
                                     }
 
     $(".hide").hide();
-    
 </script>
 
 @endsection

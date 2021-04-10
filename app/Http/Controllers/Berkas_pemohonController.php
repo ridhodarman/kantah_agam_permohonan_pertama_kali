@@ -41,8 +41,17 @@ class Berkas_pemohonController extends Controller
      */
     public function store(Request $request)
     {
+        //return $request;
         $request->validate([
-            'nama_pemohon' => 'required'
+            'nama' => 'required'
+        ]);
+        $nama_p = $request->nama;
+        if(empty($nama_p[count($nama_p)-1])) {
+            unset($nama_p[count($nama_p)-1]);
+        }
+
+        $request->merge([
+            'nama_pemohon' => json_encode($nama_p),
         ]);
 
         Berkas_pemohon::create($request->all());
@@ -109,4 +118,25 @@ class Berkas_pemohonController extends Controller
         //return redirect()->route('berkas.index')->with('success','Berkas telah dihapus');
         return redirect()->back()->with('success','Berkas telah dihapus');
     }
+
+    public function cari_nama(Request $request){
+        $nama_pemohon = strtolower($request->nama_pemohon);
+
+        $sql = Berkas_pemohon::whereRaw('lower(nama_pemohon) like (?)',["%{$nama_pemohon}%"])->paginate(5);
+            return view ('berkas.index',[
+                'nama_pemohon' => $nama_pemohon,
+                'berkas' => $sql
+            ])->with('i', (request()->input('page', 1) - 1) * 5);
+    }
+
+    public function cari_noberkas(Request $request){
+        $no_berkas = $request->no_berkas;
+
+        $sql = Berkas_pemohon::whereRaw('no_berkas like (?)',["%{$no_berkas}%"])->paginate(5);
+            return view ('berkas.index',[
+                'no_berkas' => $no_berkas,
+                'berkas' => $sql
+            ])->with('i', (request()->input('page', 1) - 1) * 5);
+    }
+
 }

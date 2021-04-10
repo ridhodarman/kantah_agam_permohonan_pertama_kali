@@ -13,7 +13,7 @@ class Berkas_pemohon extends Model
         'no_berkas', 'nama_pemohon', 'nib', 'tanggal_pbt', 'no_pbt',
         'luas', 'jorong', 'nagari', 'kecamatan', 'tanggal_st', 'no_st', 'tanggal_lap',
         'tanggal_ris', 'no_ris', 'tanggal_peng', 'no_peng', 'sampai_tanggal', 'tanggal_sk',
-        'ket', 'tahun', 'no_sk',
+        'total_biaya', 'tahun', 'no_sk', 'tanggal_mulai',
         'no_surat_undangan', 'tanggal_surat_undangan', 'jam_surat_undangan',
         'penggunaan_saat_ini', 'rencana_penggunaan',
         'nik_pemohon', 'tempat_lahir_pemohon', 'tanggal_lahir_pemohon', 'alamat_pemohon',
