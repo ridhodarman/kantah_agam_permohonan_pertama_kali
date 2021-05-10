@@ -470,7 +470,7 @@ class Pemberian_haksController extends Controller
                 $n=0;
                 for ($i = 0; $i < count($pemohon); $i++) {
                     try {
-                        $perorangan = $perorangan."Nama		: ".$pemohon[$i];
+                        $perorangan = $perorangan."Nama        :  ".$pemohon[$i];
                         if (isset($tanggal_lahir[$i])){
                             $lahir    =new DateTime($tanggal_lahir[$i]);
                             $today    =new DateTime();
@@ -485,13 +485,13 @@ class Pemberian_haksController extends Controller
                         if (!isset($nik[$i])){$nik[$i]="";}
                         //$nik[$i]="";$alamat[$i]="";$pekerjaan[$i]="";
                         
-                        $perorangan = $perorangan."<w:br/>Umur	: ".$umur."<w:br/>Pekerjaan	: ".$pekerjaan[$i]."<w:br/>Alamat		: ".$alamat[$i]."<w:br/>KTP No.		: ".$nik[$i]."<w:br/><w:br/>";
+                        $perorangan = $perorangan."<w:br/>Umur        : ".$umur."<w:br/>Pekerjaan : ".$pekerjaan[$i]."<w:br/>Alamat     : ".$alamat[$i]."<w:br/>KTP No.   : ".$nik[$i]."<w:br/><w:br/>";
                     } catch (Exception $e) {
-                        $perorangan = $perorangan."<w:br/>Umur	: <w:br/>Pekerjaan	: <w:br/>Alamat		: <w:br/><w:br/>KTP No.		: <w:br/><w:br/>";
+                        $perorangan = $perorangan."<w:br/>Umur        : <w:br/>Pekerjaan : <w:br/>Alamat     : <w:br/><w:br/>KTP No.   : <w:br/><w:br/>";
                     }
                 }
             } catch (Exception $e) {
-                $perorangan = $perorangan."Nama		: <w:br/>Umur	: <w:br/>Pekerjaan	: <w:br/>Alamat		: <w:br/><w:br/>KTP No.		: <w:br/><w:br/>";
+                $perorangan = $perorangan."Nama        :  <w:br/>Umur        : <w:br/>Pekerjaan : <w:br/>Alamat     : <w:br/><w:br/>KTP No.   : <w:br/><w:br/>";
             }
         }
 
@@ -654,7 +654,7 @@ class Pemberian_haksController extends Controller
                 $n=0;
                 for ($i = 0; $i < count($pemohon); $i++) {
                     try {
-                        $perorangan = $perorangan."Nama		: ".$pemohon[$i];
+                        $perorangan = $perorangan."Nama        :  ".$pemohon[$i];
                         if (isset($tanggal_lahir[$i])){
                             $lahir    =new DateTime($tanggal_lahir[$i]);
                             $today    =new DateTime();
@@ -667,13 +667,13 @@ class Pemberian_haksController extends Controller
                         if (!isset($alamat[$i])){$alamat[$i]="";}
                         if (!isset($nik[$i])){$nik[$i]="";}
                         
-                        $perorangan = $perorangan."<w:br/>Umur	: ".$umur."<w:br/>Pekerjaan	: ".$pekerjaan[$i]."<w:br/>Alamat		: ".$alamat[$i]."<w:br/>KTP No.		: ".$nik[$i]."<w:br/><w:br/>";
+                        $perorangan = $perorangan."<w:br/>Umur        : ".$umur."<w:br/>Pekerjaan : ".$pekerjaan[$i]."<w:br/>Alamat     : ".$alamat[$i]."<w:br/>KTP No.   : ".$nik[$i]."<w:br/><w:br/>";
                     } catch (Exception $e) {
-                        $perorangan = $perorangan."<w:br/>Umur	: <w:br/>Pekerjaan	: <w:br/>Alamat		: <w:br/><w:br/>KTP No.		: <w:br/>";
+                        $perorangan = $perorangan."<w:br/>Umur        : <w:br/>Pekerjaan : <w:br/>Alamat     : <w:br/><w:br/>KTP No.   : <w:br/>";
                     }
                 }
             } catch (Exception $e) {
-                $perorangan = $perorangan."Nama		: <w:br/>Umur	: <w:br/>Pekerjaan	: <w:br/>Alamat		: <w:br/><w:br/>KTP No.		: <w:br/>";
+                $perorangan = $perorangan."Nama        :  <w:br/>Umur        : <w:br/>Pekerjaan : <w:br/>Alamat     : <w:br/><w:br/>KTP No.   : <w:br/>";
             }
         }
 
